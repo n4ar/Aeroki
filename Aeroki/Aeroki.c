@@ -42,7 +42,7 @@ void handle_ha(char *line) {
     char left[32], right[32];
     char op;
 
-    if (sscanf(line, "หา %[^+*/- ] %c %s", left, &op, right) == 3) {
+    if (sscanf(line, "หา %[^+*/-]%c%[^\n]", left, &op, right) == 3) {
         int a = get_variable(left);
         int b = get_variable(right);
         int result = 0;
@@ -89,9 +89,7 @@ static void ltrim(char *str) {
     while (str[index] == ' ' || str[index] == '\t') index++;
     if (index > 0) {
         int i = 0;
-        while (str[index]) {
-            str[i++] = str[index++];
-        }
+        while (str[index]) str[i++] = str[index++];
         str[i] = '\0';
     }
 }
@@ -101,11 +99,11 @@ void __Ark_Interpreted(FILE *__src_file) {
     while (fgets(line, sizeof(line), __src_file)) {
         line[strcspn(line, "\n")] = '\0';
 
-        if (strncmp(line, "ให้ ", 6) == 0) {
+        if (strncmp(line, "ให้ ", strlen("ให้ ")) == 0) {
             handle_hai(line);
-        } else if (strncmp(line, "หา ", 6) == 0) {
+        } else if (strncmp(line, "หา ", strlen("หา ")) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า ", 12) == 0) {
+        } else if (strncmp(line, "รับค่า ", strlen("รับค่า ")) == 0) {
             handle_rubkum(line);
         }
     }
@@ -115,29 +113,23 @@ void __Ark_Shell() {
     char line[256];
 
     printf("Aeroki Shell Mode (type 'ออก' to exit)\n");
-    fflush(stdout);
 
     while (1) {
         printf(">>> ");
         fflush(stdout);
 
-        if (fgets(line, sizeof(line), stdin) == NULL) {
-            printf("\nInput closed. Exiting shell.\n");
-            break;
-        }
+        if (fgets(line, sizeof(line), stdin) == NULL) break;
 
         line[strcspn(line, "\n")] = '\0';
         ltrim(line);
 
-        if (strcmp(line, "ออก") == 0) {
-            break;
-        }
+        if (strcmp(line, "ออก") == 0) break;
 
-        if (strncmp(line, "ให้ ", 6) == 0) {
+        if (strncmp(line, "ให้ ", strlen("ให้ ")) == 0) {
             handle_hai(line);
-        } else if (strncmp(line, "หา ", 6) == 0) {
+        } else if (strncmp(line, "หา ", strlen("หา ")) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า ", 12) == 0) {
+        } else if (strncmp(line, "รับค่า ", strlen("รับค่า ")) == 0) {
             handle_rubkum(line);
         } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
