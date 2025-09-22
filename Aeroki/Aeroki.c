@@ -97,6 +97,8 @@ void __Ark_Shell() {
 
     while (1) {
         printf(">>> ");
+        fflush(stdout);
+
         if (!fgets(line, sizeof(line), stdin)) {
             break;
         }
@@ -111,7 +113,7 @@ void __Ark_Shell() {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
-        } else {
+        } else if (strlen(line) > 0) {
             printf("Unknown command: %s\n", line);
         }
     }
