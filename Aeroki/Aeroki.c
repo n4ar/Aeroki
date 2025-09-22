@@ -77,6 +77,18 @@ void handle_hai(char *line) {
     }
 }
 
+static void ltrim(char *str) {
+    int index = 0;
+    while (str[index] == ' ' || str[index] == '\t') index++;
+    if (index > 0) {
+        int i = 0;
+        while (str[index]) {
+            str[i++] = str[index++];
+        }
+        str[i] = '\0';
+    }
+}
+
 void __Ark_Interpreted(FILE *__src_file) {
     char line[256];
     while (fgets(line, sizeof(line), __src_file)) {
@@ -106,6 +118,7 @@ void __Ark_Shell() {
         }
 
         line[strcspn(line, "\n")] = '\0';
+        ltrim(line);
 
         if (strcmp(line, "ออก") == 0) {
             break;
