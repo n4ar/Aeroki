@@ -1,4 +1,5 @@
 #include "Aeroki.h"
+
 #define MAX_VARIABLES 100
 
 typedef struct {
@@ -26,6 +27,7 @@ void set_variable(const char *name, int value) {
             return;
         }
     }
+
     if (var_count < MAX_VARIABLES) {
         strcpy(variables[var_count].name, name);
         variables[var_count].value = value;
@@ -49,7 +51,7 @@ void handle_ha(char *line) {
             case '+': result = a + b; break;
             case '-': result = a - b; break;
             case '*': result = a * b; break;
-            case '/': result = b != 0 ? a / b : 0; break;
+            case '/': result = (b != 0) ? a / b : 0; break;
             default:
                 fprintf(stderr, "Unknown operator: %c\n", op);
                 return;
@@ -92,12 +94,14 @@ void __Ark_Shell() {
     char line[256];
 
     printf("Aeroki Shell Mode (type 'ออก' to exit)\n");
+    fflush(stdout);
 
     while (1) {
         printf(">>> ");
         fflush(stdout);
 
-        if (!fgets(line, sizeof(line), stdin)) {
+        if (fgets(line, sizeof(line), stdin) == NULL) {
+            printf("\nInput closed. Exiting shell.\n");
             break;
         }
 
@@ -111,7 +115,7 @@ void __Ark_Shell() {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
-        } else if (strlen(line) > 0) {
+        } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
         }
     }
