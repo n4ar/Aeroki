@@ -73,7 +73,7 @@ void handle_hai(char *line) {
 
 void handle_rubkum(char *line) {
     char varname[32];
-    if (sscanf(line, "รับคำ %s", varname) == 1) {
+    if (sscanf(line, "รับค่า %s", varname) == 1) {
         int value;
         printf("กรอกค่า %s: ", varname);
         if (scanf("%d", &value) == 1) {
@@ -105,7 +105,7 @@ void __Ark_Interpreted(FILE *__src_file) {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับคำ ", 12) == 0) {
+        } else if (strncmp(line, "รับค่า ", 12) == 0) {
             handle_rubkum(line);
         }
     }
@@ -137,7 +137,7 @@ void __Ark_Shell() {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับคำ ", 12) == 0) {
+        } else if (strncmp(line, "รับค่า ", 12) == 0) {
             handle_rubkum(line);
         } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
