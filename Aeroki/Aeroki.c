@@ -1,5 +1,4 @@
 #include "Aeroki.h"
-
 #define MAX_VARIABLES 100
 
 typedef struct {
@@ -27,7 +26,6 @@ void set_variable(const char *name, int value) {
             return;
         }
     }
-
     if (var_count < MAX_VARIABLES) {
         strcpy(variables[var_count].name, name);
         variables[var_count].value = value;
