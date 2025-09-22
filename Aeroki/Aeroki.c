@@ -42,7 +42,7 @@ void handle_ha(char *line) {
     char left[32], right[32];
     char op;
 
-    if (sscanf(line, "หา %[^+*/-]%c%[^\n]", left, &op, right) == 3) {
+    if (sscanf(line, "หา %[^+*/- ] %c %s", left, &op, right) == 3) {
         int a = get_variable(left);
         int b = get_variable(right);
         int result = 0;
@@ -52,17 +52,13 @@ void handle_ha(char *line) {
             case '-': result = a - b; break;
             case '*': result = a * b; break;
             case '/': result = (b != 0) ? a / b : 0; break;
-            default:
-                fprintf(stderr, "Unknown operator: %c\n", op);
-                return;
+            default: return;
         }
 
         printf("%d\n", result);
     } else if (sscanf(line, "หา %s", left) == 1) {
         int a = get_variable(left);
         printf("%d\n", a);
-    } else {
-        fprintf(stderr, "Invalid syntax in 'หา'.\n");
     }
 }
 
@@ -72,8 +68,19 @@ void handle_hai(char *line) {
 
     if (sscanf(line, "ให้ %s = %d", varname, &value) == 2) {
         set_variable(varname, value);
-    } else {
-        fprintf(stderr, "Invalid syntax in 'ให้'.\n");
+    }
+}
+
+void handle_rubkum(char *line) {
+    char varname[32];
+    if (sscanf(line, "รับคำ %s", varname) == 1) {
+        int value;
+        printf("กรอกค่า %s: ", varname);
+        if (scanf("%d", &value) == 1) {
+            set_variable(varname, value);
+        } else {
+            int c; while ((c = getchar()) != '\n' && c != EOF);
+        }
     }
 }
 
@@ -98,6 +105,8 @@ void __Ark_Interpreted(FILE *__src_file) {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
+        } else if (strncmp(line, "รับคำ ", 12) == 0) {
+            handle_rubkum(line);
         }
     }
 }
@@ -128,6 +137,8 @@ void __Ark_Shell() {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
+        } else if (strncmp(line, "รับคำ ", 12) == 0) {
+            handle_rubkum(line);
         } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
         }
