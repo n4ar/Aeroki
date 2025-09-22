@@ -103,7 +103,7 @@ void __Ark_Interpreted(FILE *__src_file) {
             handle_hai(line);
         } else if (strncmp(line, "หา ", strlen("หา ")) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า ", strlen("รับค่า ")) == 0) {
+        } else if (strncmp(line, "รับค่า", strlen("รับค่า")) == 0) {
             handle_rubkum(line);
         }
     }
