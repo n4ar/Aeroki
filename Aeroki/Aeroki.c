@@ -33,7 +33,7 @@ void set_variable(const char *name, int value) {
         variables[var_count].value = value;
         var_count++;
     } else {
-        fprintf(stderr, "Too many variables!\n");
+        fprintf(stderr, "Too many variables.\n");
         exit(1);
     }
 }
@@ -41,12 +41,13 @@ void set_variable(const char *name, int value) {
 void handle_ha(char *line) {
     char left[32], right[32];
     char op;
+
     if (sscanf(line, "หา %[^+*/-]%c%[^\n]", left, &op, right) == 3) {
         int a = get_variable(left);
         int b = get_variable(right);
         int result = 0;
 
-        switch(op) {
+        switch (op) {
             case '+': result = a + b; break;
             case '-': result = a - b; break;
             case '*': result = a * b; break;
@@ -55,29 +56,65 @@ void handle_ha(char *line) {
                 fprintf(stderr, "Unknown operator: %c\n", op);
                 return;
         }
+
         printf("%d\n", result);
+    } else if (sscanf(line, "หา %s", left) == 1) {
+        int a = get_variable(left);
+        printf("%d\n", a);
     } else {
-        fprintf(stderr, "Invalid expression in หา\n");
+        fprintf(stderr, "Invalid syntax in 'หา'.\n");
     }
 }
 
 void handle_hai(char *line) {
     char varname[32];
     int value;
+
     if (sscanf(line, "ให้ %s = %d", varname, &value) == 2) {
         set_variable(varname, value);
     } else {
-        fprintf(stderr, "Invalid syntax in ให้\n");
+        fprintf(stderr, "Invalid syntax in 'ให้'.\n");
     }
 }
 
 void __Ark_Interpreted(FILE *__src_file) {
     char line[256];
     while (fgets(line, sizeof(line), __src_file)) {
+        line[strcspn(line, "\n")] = '\0';
+
         if (strncmp(line, "ให้ ", 6) == 0) {
             handle_hai(line);
         } else if (strncmp(line, "หา ", 6) == 0) {
             handle_ha(line);
         }
     }
+}
+
+void __Ark_Shell() {
+    char line[256];
+
+    printf("Aeroki Shell Mode (type 'ออก' to exit)\n");
+
+    while (1) {
+        printf(">>> ");
+        if (!fgets(line, sizeof(line), stdin)) {
+            break;
+        }
+
+        line[strcspn(line, "\n")] = '\0';
+
+        if (strcmp(line, "ออก") == 0) {
+            break;
+        }
+
+        if (strncmp(line, "ให้ ", 6) == 0) {
+            handle_hai(line);
+        } else if (strncmp(line, "หา ", 6) == 0) {
+            handle_ha(line);
+        } else {
+            printf("Unknown command: %s\n", line);
+        }
+    }
+
+    printf("Exited shell mode.\n");
 }
