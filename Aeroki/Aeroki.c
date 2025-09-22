@@ -71,7 +71,7 @@ void handle_hai(char *line) {
     }
 }
 
-void handle_rubkum(char *line) {
+void handle_rubka(char *line) {
     char varname[32];
     if (sscanf(line, "รับค่า %s", varname) == 1) {
         int value;
@@ -84,27 +84,30 @@ void handle_rubkum(char *line) {
     }
 }
 
-static void ltrim(char *str) {
-    int index = 0;
-    while (str[index] == ' ' || str[index] == '\t') index++;
-    if (index > 0) {
-        int i = 0;
-        while (str[index]) str[i++] = str[index++];
-        str[i] = '\0';
+static void trim(char *str) {
+    int start = 0;
+    while (str[start] == ' ' || str[start] == '\t') start++;
+    int end = strlen(str) - 1;
+    while (end >= start && (str[end] == ' ' || str[end] == '\t')) end--;
+    int i = 0;
+    for (int j = start; j <= end; j++) {
+        str[i++] = str[j];
     }
+    str[i] = '\0';
 }
 
 void __Ark_Interpreted(FILE *__src_file) {
     char line[256];
     while (fgets(line, sizeof(line), __src_file)) {
         line[strcspn(line, "\n")] = '\0';
+        trim(line);
 
-        if (strncmp(line, "ให้ ", strlen("ให้ ")) == 0) {
+        if (strncmp(line, "ให้", 6) == 0) {
             handle_hai(line);
-        } else if (strncmp(line, "หา ", strlen("หา ")) == 0) {
+        } else if (strncmp(line, "หา", 6) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า ", strlen("รับค่า ")) == 0 || strcmp(line, "รับค่า") == 0) {
-            handle_rubkum(line);
+        } else if (strncmp(line, "รับค่า", 9) == 0) {
+            handle_rubka(line);
         }
     }
 }
@@ -121,16 +124,16 @@ void __Ark_Shell() {
         if (fgets(line, sizeof(line), stdin) == NULL) break;
 
         line[strcspn(line, "\n")] = '\0';
-        ltrim(line);
+        trim(line);
 
         if (strcmp(line, "ออก") == 0) break;
 
-        if (strncmp(line, "ให้ ", strlen("ให้ ")) == 0) {
+        if (strncmp(line, "ให้", 6) == 0) {
             handle_hai(line);
-        } else if (strncmp(line, "หา ", strlen("หา ")) == 0) {
+        } else if (strncmp(line, "หา", 6) == 0) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า ", strlen("รับค่า ")) == 0 || strcmp(line, "รับค่า") == 0) {
-            handle_rubkum(line);
+        } else if (strncmp(line, "รับค่า", 9) == 0) {
+            handle_rubka(line);
         } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
         }
