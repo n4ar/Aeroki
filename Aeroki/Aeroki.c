@@ -84,29 +84,27 @@ void handle_rubka(char *line) {
     }
 }
 
-static void trim(char *str) {
-    int start = 0;
-    while (str[start] == ' ' || str[start] == '\t') start++;
-    int end = strlen(str) - 1;
-    while (end >= start && (str[end] == ' ' || str[end] == '\t')) end--;
-    int i = 0;
-    for (int j = start; j <= end; j++) {
-        str[i++] = str[j];
+static void ltrim(char *str) {
+    int index = 0;
+    while (str[index] == ' ' || str[index] == '\t') index++;
+    if (index > 0) {
+        int i = 0;
+        while (str[index]) str[i++] = str[index++];
+        str[i] = '\0';
     }
-    str[i] = '\0';
 }
 
 void __Ark_Interpreted(FILE *__src_file) {
     char line[256];
     while (fgets(line, sizeof(line), __src_file)) {
         line[strcspn(line, "\n")] = '\0';
-        trim(line);
+        ltrim(line);
 
-        if (strncmp(line, "ให้", 6) == 0) {
+        if (strstr(line, "ให้") == line) {
             handle_hai(line);
-        } else if (strncmp(line, "หา", 6) == 0) {
+        } else if (strstr(line, "หา") == line) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า", 9) == 0) {
+        } else if (strstr(line, "รับค่า") == line) {
             handle_rubka(line);
         }
     }
@@ -124,15 +122,15 @@ void __Ark_Shell() {
         if (fgets(line, sizeof(line), stdin) == NULL) break;
 
         line[strcspn(line, "\n")] = '\0';
-        trim(line);
+        ltrim(line);
 
         if (strcmp(line, "ออก") == 0) break;
 
-        if (strncmp(line, "ให้", 6) == 0) {
+        if (strstr(line, "ให้") == line) {
             handle_hai(line);
-        } else if (strncmp(line, "หา", 6) == 0) {
+        } else if (strstr(line, "หา") == line) {
             handle_ha(line);
-        } else if (strncmp(line, "รับค่า", 9) == 0) {
+        } else if (strstr(line, "รับค่า") == line) {
             handle_rubka(line);
         } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
