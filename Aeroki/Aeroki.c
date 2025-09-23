@@ -42,7 +42,7 @@ void handle_ha(char *line) {
     char left[32], right[32];
     char op;
 
-    if (sscanf(line, "หา %[^+*/-]%c%[^\n]", left, &op, right) == 3) {
+    if (sscanf(line, "หา %[^+*/- ] %c %s", left, &op, right) == 3) {
         int a = get_variable(left);
         int b = get_variable(right);
         int result = 0;
@@ -74,12 +74,17 @@ void handle_hai(char *line) {
 void handle_rubka(char *line) {
     char varname[32];
     if (sscanf(line, "รับค่า %s", varname) == 1) {
-        int value;
+        char input[64];
         printf("กรอกค่า %s: ", varname);
-        if (scanf("%d", &value) == 1) {
-            set_variable(varname, value);
-        } else {
-            int c; while ((c = getchar()) != '\n' && c != EOF);
+        fflush(stdout);
+
+        if (fgets(input, sizeof(input), stdin) != NULL) {
+            int value;
+            if (sscanf(input, "%d", &value) == 1) {
+                set_variable(varname, value);
+            } else {
+                printf("Invalid number input for %s\n", varname);
+            }
         }
     }
 }
@@ -100,11 +105,11 @@ void __Ark_Interpreted(FILE *__src_file) {
         line[strcspn(line, "\n")] = '\0';
         ltrim(line);
 
-        if (strstr(line, "ให้") == line) {
+        if (strncmp(line, "ให้", 6) == 0) {
             handle_hai(line);
-        } else if (strstr(line, "หา") == line) {
+        } else if (strncmp(line, "หา", 6) == 0) {
             handle_ha(line);
-        } else if (strstr(line, "รับค่า") == line) {
+        } else if (strncmp(line, "รับค่า", 12) == 0) {
             handle_rubka(line);
         }
     }
@@ -126,11 +131,11 @@ void __Ark_Shell() {
 
         if (strcmp(line, "ออก") == 0) break;
 
-        if (strstr(line, "ให้") == line) {
+        if (strncmp(line, "ให้", 6) == 0) {
             handle_hai(line);
-        } else if (strstr(line, "หา") == line) {
+        } else if (strncmp(line, "หา", 6) == 0) {
             handle_ha(line);
-        } else if (strstr(line, "รับค่า") == line) {
+        } else if (strncmp(line, "รับค่า", 12) == 0) {
             handle_rubka(line);
         } else if (line[0] != '\0') {
             printf("Unknown command: %s\n", line);
