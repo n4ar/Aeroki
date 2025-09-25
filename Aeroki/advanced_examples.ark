@@ -1,0 +1,210 @@
+# Advanced Aeroki Examples
+# ตัวอย่างขั้นสูงของโปรแกรม Aeroki
+
+แสดง "=== ตัวอย่างโปรแกรมขั้นสูง ==="
+
+# ===== Example 1: Number Guessing Game =====
+แสดง "เกมทายตัวเลข"
+ให้ target = 42
+ให้ guess = 0
+ให้ attempts = 0
+
+# Simulate guessing (normally would use รับค่า)
+ให้ guess = 30
+ให้ attempts = 1
+ถ้า guess < target แล้ว แสดง "น้อยเกินไป ลองใหม่"
+
+ให้ guess = 50  
+ให้ attempts = 2
+ถ้า guess > target แล้ว แสดง "มากเกินไป ลองใหม่"
+
+ให้ guess = 42
+ให้ attempts = 3
+ถ้า guess เท่ากับ target แล้ว แสดง "ถูกต้อง!"
+
+แสดง "จำนวนครั้งที่ลอง:"
+หา attempts
+
+# ===== Example 2: Temperature Converter =====
+แสดง "โปรแกรมแปลงอุณหภูมิ"
+
+# Convert Celsius to Fahrenheit
+ให้ celsius = 25
+# F = C * 9/5 + 32
+หา celsius * 9
+หา celsius * 9 / 5  
+ให้ step1 = 45  # celsius * 9 / 5 result
+ให้ fahrenheit = 77  # step1 + 32
+
+แสดง "อุณหภูมิ Celsius:"
+หา celsius
+แสดง "เท่ากับ Fahrenheit:"
+หา fahrenheit
+
+# ===== Example 3: Grade Statistics =====
+แสดง "สถิติเกรด"
+
+# Sample grades
+ให้ grade1 = 85
+ให้ grade2 = 92
+ให้ grade3 = 78
+ให้ grade4 = 95
+ให้ grade5 = 88
+
+# Calculate total and average
+หา grade1 + grade2
+หา grade1 + grade2 + grade3
+หา grade1 + grade2 + grade3 + grade4
+หา grade1 + grade2 + grade3 + grade4 + grade5
+ให้ total = 438
+ให้ average = 87  # total / 5
+
+แสดง "คะแนนรวม:"
+หา total
+แสดง "คะแนนเฉลี่ย:"  
+หา average
+
+# Grade classification
+ถ้า average >= 90 แล้ว แสดง "เกรด: A"
+ถ้า average >= 80 แล้ว แสดง "เกรด: B"
+ถ้า average >= 70 แล้ว แสดง "เกรด: C"
+
+# ===== Example 4: Mathematical Series =====
+แสดง "อนุกรมทางคณิตศาสตร์"
+
+# Fibonacci-like series (simplified)
+แสดง "ลำดับตัวเลข:"
+ให้ a = 1
+ให้ b = 1
+หา a
+หา b
+
+# Generate next few terms
+หา a + b  # Should be 2
+ให้ c = 2
+หา c
+
+หา b + c  # Should be 3  
+ให้ d = 3
+หา d
+
+หา c + d  # Should be 5
+ให้ e = 5
+หา e
+
+# ===== Example 5: Simple Banking System =====
+แสดง "ระบบธนาคารเบื้องต้น"
+
+ให้ balance = 1000
+แสดง "ยอดเงินเริ่มต้น:"
+หา balance
+
+# Deposit
+ให้ deposit = 500
+หา balance + deposit
+ให้ balance = 1500
+
+แสดง "หลังฝากเงิน:"
+หา balance
+
+# Withdraw
+ให้ withdraw = 200
+ถ้า withdraw <= balance แล้ว หา balance - withdraw
+ให้ balance = 1300
+
+แสดง "หลังถอนเงิน:"
+หา balance
+
+# Check if account is in good standing
+ถ้า balance > 100 แล้ว แสดง "บัญชีอยู่ในสภาพดี"
+ถ้า balance <= 100 แล้ว แสดง "เงินในบัญชีต่ำ"
+
+# ===== Example 6: Pattern Generation =====
+แสดง "สร้างรูปแบบ"
+
+# Create multiplication table for 5
+แสดง "สูตรคูณของ 5:"
+วนลูป i จาก 1 ถึง 10 ทำ หา i * 5
+
+# ===== Example 7: Text Processing =====
+แสดง "การประมวลผลข้อความ"
+
+ให้ text1 = "สวัสดี"
+ให้ text2 = "ชาวโลก"
+หา text1
+หา text2
+
+# Length calculation (simulated)
+ให้ len1 = 6  # Length of "สวัสดี"
+ให้ len2 = 7  # Length of "ชาวโลก"  
+แสดง "ความยาวข้อความ:"
+หา len1
+หา len2
+
+# ===== Example 8: Data Validation =====
+แสดง "การตรวจสอบข้อมูล"
+
+# Age validation
+ให้ age = 25
+ถ้า age >= 0 แล้ว ถ้า age <= 120 แล้ว แสดง "อายุถูกต้อง"
+
+# Email format simulation (basic check)
+ให้ email = "user@domain.com"
+ให้ has_at = จริง  # Simulate @ symbol check
+ให้ has_dot = จริง  # Simulate . symbol check
+
+ถ้า has_at == จริง แล้ว ถ้า has_dot == จริง แล้ว แสดง "รูปแบบอีเมลถูกต้อง"
+
+# ===== Example 9: Scientific Calculator =====
+แสดง "เครื่องคิดเลขทางวิทยาศาสตร์"
+
+ให้ angle = 1.57  # approximately π/2
+หา sin(angle)
+หา cos(angle)
+
+ให้ number = 100
+หา sqrt(number)
+หา log(number)
+
+# Power calculation (simulated)
+ให้ base = 2
+ให้ exponent = 3
+# 2^3 = 8
+ให้ result = 8
+แสดง "2 ยกกำลัง 3 เท่ากับ:"
+หา result
+
+# ===== Example 10: File-Based Data Processing =====
+แสดง "การประมวลผลข้อมูลจากไฟล์"
+
+# Create sample data
+ให้ student1 = "สมชาย คะแนน 85"
+ให้ student2 = "สมใจ คะแนน 92"  
+ให้ student3 = "สมหญิง คะแนน 78"
+
+# Save to files
+เขียนไฟล์ "student1.txt" จาก student1
+เขียนไฟล์ "student2.txt" จาก student2
+เขียนไฟล์ "student3.txt" จาก student3
+
+แสดง "บันทึกข้อมูลนักเรียนแล้ว"
+
+# Process and generate report
+ให้ total_students = 3
+ให้ average_score = 85
+ให้ report = "รายงานผลการเรียน: 3 คน เฉลี่ย 85 คะแนน"
+
+เขียนไฟล์ "report.txt" จาก report
+แสดง "สร้างรายงานเสร็จแล้ว"
+
+# ===== Clean up demonstration =====
+แสดง "ทดสอบการล้างหน่วยความจำ"
+แสดง "ตัวแปรก่อนล้าง:"
+หา balance
+หา average
+หา total_students
+
+ล้าง
+แสดง "ล้างหน่วยความจำแล้ว - ตัวแปรหายไปแล้ว"
+
+แสดง "=== จบตัวอย่างขั้นสูง ==="

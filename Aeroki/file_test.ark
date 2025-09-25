@@ -1,0 +1,24 @@
+# File I/O Test
+แสดง "ทดสอบการทำงานกับไฟล์"
+
+# Create some data
+ให้ data = "ข้อมูลทดสอบจากโปรแกรม Aeroki"
+ให้ number = 12345
+
+# Write to files
+เขียนไฟล์ "output_text.txt" จาก data
+เขียนไฟล์ "output_number.txt" จาก number
+
+แสดง "เขียนไฟล์เสร็จแล้ว"
+
+# Clear memory to test file reading
+ล้าง
+
+# Read from files
+อ่านไฟล์ "output_text.txt" ใส่ read_data
+อ่านไฟล์ "output_number.txt" ใส่ read_number
+
+# Display what we read
+แสดง "ข้อมูลที่อ่านได้:"
+หา read_data
+หา read_number

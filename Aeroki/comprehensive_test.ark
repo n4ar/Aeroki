@@ -1,0 +1,88 @@
+# Comprehensive Test of Enhanced Aeroki Features
+# ทดสอบคุณสมบัติใหม่ของ Aeroki
+
+# ===== Basic Variable Assignment =====
+แสดง "=== การกำหนดตัวแปรพื้นฐาน ==="
+
+# Integer variables
+ให้ x = 10
+ให้ y = 25
+หา x
+หา y
+
+# Float variables
+ให้ pi = 3.14159
+ให้ radius = 5.0
+หา pi
+หา radius
+
+# String variables
+ให้ name = "Aeroki"
+ให้ message = "สวัสดีชาวโลก"
+หา name
+หา message
+
+# Boolean variables
+ให้ is_true = จริง
+ให้ is_false = เท็จ
+หา is_true
+หา is_false
+
+# ===== Arithmetic Operations =====
+แสดง "=== การดำเนินการทางคณิตศาสตร์ ==="
+
+หา x + y
+หา y - x
+หา x * y
+หา y / x
+หา y % x
+
+# Float arithmetic
+หา pi * radius
+หา radius / pi
+
+# ===== Mathematical Functions =====
+แสดง "=== ฟังก์ชันทางคณิตศาสตร์ ==="
+
+หา รากที่สอง(25)
+หา สัมบูรณ์(-10)
+หา ปัดขึ้น(3.14)
+หา ปัดลง(3.99)
+หา sqrt(16)
+หา abs(-42)
+
+# ===== Print Statements =====
+แสดง "=== การแสดงผล ==="
+
+แสดง "Hello World!"
+แสดง "ทดสอบภาษาไทย"
+แสดง x
+แสดง message
+
+# ===== Conditional Statements =====
+แสดง "=== คำสั่งเงื่อนไข ==="
+
+ถ้า x > 5 แล้ว แสดง "x มากกว่า 5"
+ถ้า y เท่ากับ 25 แล้ว แสดง "y เท่ากับ 25"
+ถ้า is_true == จริง แล้ว แสดง "Boolean test passed"
+
+# ===== Loops =====
+แสดง "=== การวนลูป ==="
+
+วนลูป i จาก 1 ถึง 5 ทำ แสดง i
+วนลูป j จาก 10 ถึง 12 ทำ หา j * 2
+
+# ===== Mixed Operations =====
+แสดง "=== การผสมผสาน ==="
+
+ให้ temp = 100
+ถ้า temp > 50 แล้ว ให้ status = "ร้อน"
+หา status
+
+# Clear memory test
+แสดง "=== ทดสอบการล้างหน่วยความจำ ==="
+แสดง "ก่อนล้าง:"
+หา x
+ล้าง
+แสดง "หลังล้าง:"
+# This should cause an error since x is cleared
